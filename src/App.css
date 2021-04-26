@@ -1,18 +1,34 @@
+*{
+  background-color: black;
+  color: antiquewhite;
+  margin: 10px;
+}
+
 .App {
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.id{
+  background-color:dimgrey;
+  border-radius: 50%;
+  width: 30px;
+  height: 27px;
+  text-align:center;
+  margin: 0%;
+  padding-top: 3px;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.status{
+  color: aquamarine;
+  font-family:Verdana;
+  font-style: italic;
 }
-
+.changeStatusButton{
+  background-color: blueviolet;
+  width: 100px;
+  height: 40px;
+  margin: 10px;
+}
 .App-header {
   background-color: #282c34;
   min-height: 100vh;
