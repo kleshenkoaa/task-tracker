@@ -1,0 +1,12 @@
+
+.inputStyle{
+    flex-direction: row;
+    display:flex;
+    background-color: grey;
+  }
+  
+  .inputInnerStyle {
+    background-color: chartreuse;
+    color: black;
+  }
+  
