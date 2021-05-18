@@ -1,0 +1,23 @@
+*{  
+  margin: 10px;
+}
+
+.container{
+  &-theme-dark{
+    background-color: black;
+    color: antiquewhite;
+  }
+
+  &-theme-light{
+    background-color: antiquewhite;
+    color: black;
+  }
+}
+
+.theme{
+  display: flex;
+  justify-content: flex-end;
+}
+
+
+
