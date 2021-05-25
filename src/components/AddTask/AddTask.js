@@ -1,5 +1,9 @@
 import React from 'react';
-import './AddTask.css';
+import { ThemeContext } from '../../ThemeContext';
+import classnames from 'classnames/bind'
+import styles from './AddTask.module.scss'
+
+const cx=classnames.bind(styles)
 
 class AddTask extends React.Component {
 
@@ -16,7 +20,9 @@ class AddTask extends React.Component {
   
     render() {
         return (
-          <div>
+        <ThemeContext.Consumer>{
+           theme => ( 
+          <div className={cx("container", `container-theme-${theme}`)}>
             <h2>Add task</h2>
             <div class="inputStyle">
                 <div class="inputInnerStyle">
@@ -35,6 +41,9 @@ class AddTask extends React.Component {
                 </button>
             </div>
             </div>
+           )
+            }
+        </ThemeContext.Consumer>
         )
     }
   }

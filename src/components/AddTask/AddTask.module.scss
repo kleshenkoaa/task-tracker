@@ -1,0 +1,34 @@
+
+  @mixin flex-centered($arg) {
+    font-size:26px;
+    
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background-color: green;
+  }
+
+.container {
+  @include flex-centered(26px);
+   
+  &-theme-dark{
+    background-color:violet;
+  }
+
+  &-theme-light{
+    background-color:lightblue;
+  }
+}
+
+.inputStyle{
+    flex-direction: row;
+    display:flex;
+    background-color: grey;
+  }
+  
+  .inputInnerStyle {
+    background-color: chartreuse;
+    color: black;
+   
+  }
+  

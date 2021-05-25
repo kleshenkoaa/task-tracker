@@ -1,0 +1,90 @@
+
+  .changeStatusButton 
+  {
+    background-color: blueviolet;
+    width: 100px;
+    height: 40px;
+    margin: 10px;
+    transition-duration: 0.4s;
+    overflow: hidden;
+    cursor: pointer;
+    position: relative;
+
+    &:after {
+      content: "";
+      background-color: aquamarine;
+      display: block;
+      position: absolute;
+      padding-top: 300%;
+      padding-left: 350%;
+      margin-left: -20px!important;
+      margin-top: -120%;
+      opacity: 0;
+      transition: all 0.8s
+    } 
+    &:active:after{
+        padding: 0;
+        margin: 0;
+        opacity: 1;
+        transition: 0s
+    }
+
+    &:hover{
+      width: 110px;
+      height: 50px;
+      background-color: mediumturquoise;
+    }
+    
+    &-color-false-dark {
+      background-color: blueviolet;
+    }
+
+    &-color-true-dark {
+      background-color: palevioletred;
+    }
+
+    &-color-false-light {
+      background-color: orange;
+    }
+
+    &-color-true-light {
+      background-color: turquoise;
+    }
+  }
+  
+
+
+  .id{
+    border-radius: 50%;
+    width: 30px;
+    height: 27px;
+    text-align:center;
+    margin: 0%;
+    padding-top: 3px;
+
+    &-theme-dark{
+      background-color:violet;
+    }
+
+    &-theme-light{
+      background-color:dimgrey;
+    }
+  }
+  
+  .status{
+    color: aquamarine;
+    font-family:Verdana;
+    font-style: italic;
+    background-color: transparent;
+  }
+  
+  .box{
+    width: 20vw;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+
+   
+   
+  }
+  
