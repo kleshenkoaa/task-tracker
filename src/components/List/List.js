@@ -54,7 +54,16 @@ onChangeTask = (id) => {
         }
         return it})
     this.setState({data:newData})
-    }    
+    }
+    
+    onChangeCertainTask = (id) => {
+      const newD = this.state.certainTasks.map(it => {
+          if (it.id === id) {
+              it.completed = !it.completed
+          }
+          return it})
+      this.setState({certainTasks:newD})
+      }  
 
  render(){
   if (this.state.allOrCertain) //0 - all 1 - certain
@@ -65,7 +74,8 @@ onChangeTask = (id) => {
                                                     name={it.name}
                                                     description={it.description}
                                                     completed={it.completed}
-                                                    onChangeTask={this.onChangeTask}
+                                                    onChangeTask={this.onChangeCertainTask}
+                                                    index={this.state.certainTasks.findIndex((el) => el.id === it.id)}
                                                     />)}
                     
                 </div>
