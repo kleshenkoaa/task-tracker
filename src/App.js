@@ -11,10 +11,16 @@ import ProjectList from './components/ProjectList/ProjectList';
 import Project from './components/Project/Project';
 import Add from './components/Add/Add.js'
 
+import { createStore } from 'redux'
+import { Provider } from 'react-redux'
+
+import { rootReducer } from './reducers/Index'
+
 //const {projectsById, tasksById} = norm;
 
 const {projectsById, tasksById} = normalizeState(projects)
 
+const store = createStore(rootReducer)
 
 const cx=classnames.bind(styles)
 
@@ -34,73 +40,75 @@ class App extends React.Component {
   render(){
     return(
       <div>{console.log(this.state.projectsById)}
-      <BrowserRouter>
-        <div className={cx("container", `container-theme-${this.state.theme}`)}>
-          <div className={cx("radios")}>
-            <div className={cx('theme')}>
-            <div>
-              <input 
-                type="radio"
-                name="theme"
-                id="light"
-                value="light"
-                checked={this.state.theme === "light"}
-                onChange={this.handleThemeChange}
-              />
-              <label htmlFor="light">Light theme</label>
-            </div>
+      <Provider store={store}>
+        <BrowserRouter>
+          <div className={cx("container", `container-theme-${this.state.theme}`)}>
+            <div className={cx("radios")}>
+              <div className={cx('theme')}>
+              <div>
+                <input 
+                  type="radio"
+                  name="theme"
+                  id="light"
+                  value="light"
+                  checked={this.state.theme === "light"}
+                  onChange={this.handleThemeChange}
+                />
+                <label htmlFor="light">Light theme</label>
+              </div>
 
-            <div>
-              <input
-                type="radio"
-                name="theme"
-                id="dark"
-                value="dark"
-                checked={this.state.theme === "dark"}
-                onChange={this.handleThemeChange}
-              />
-              <label htmlFor="dark">Dark theme</label>
+              <div>
+                <input
+                  type="radio"
+                  name="theme"
+                  id="dark"
+                  value="dark"
+                  checked={this.state.theme === "dark"}
+                  onChange={this.handleThemeChange}
+                />
+                <label htmlFor="dark">Dark theme</label>
+              </div>
             </div>
-          </div>
-          
-          </div>
-          <ThemeContext.Provider value={this.state.theme}>
-          <Route path="/" component={Header} />
-            <Switch>  
-              <Route exact path='/projects' component={ProjectList}>
-                <ProjectList projectsById={this.state.projectsById} tasksById={this.state.tasksById}/>
-              </Route>
-              <Route exact path='/tasks' component={List}>
-                <List allOrCertain={0} tasksById={this.state.tasksById} />
-              </Route>
-              <Route exact path='/projects/0'>
-                  <Project projectsById={this.state.projectsById}
-                            tasksById={this.state.tasksById}   
-                            full={1}   
-                            id={0}
-                    />
-                </Route> 
-                <Route exact path='/projects/1'>
-                  <Project projectsById={this.state.projectsById}
-                            tasksById={this.state.tasksById}   
-                            full={1}   
-                            id={1}
-                    />
-                </Route> 
-                <Route exact path='/projects/2'>
-                  <Project projectsById={this.state.projectsById}
-                            tasksById={this.state.tasksById}   
-                            full={1}   
-                            id={2}
-                    />
-                </Route>  
+            
+            </div>
+            <ThemeContext.Provider value={this.state.theme}>
+            <Route path="/" component={Header} />
+              <Switch>  
+                <Route exact path='/projects' component={ProjectList}>
+                  <ProjectList projectsById={this.state.projectsById} tasksById={this.state.tasksById}/>
+                </Route>
+                <Route exact path='/tasks' component={List}>
+                  <List allOrCertain={0} tasksById={this.state.tasksById} />
+                </Route>
+                <Route exact path='/projects/0'>
+                    <Project projectsById={this.state.projectsById}
+                              tasksById={this.state.tasksById}   
+                              full={1}   
+                              id={0}
+                      />
+                  </Route> 
+                  <Route exact path='/projects/1'>
+                    <Project projectsById={this.state.projectsById}
+                              tasksById={this.state.tasksById}   
+                              full={1}   
+                              id={1}
+                      />
+                  </Route> 
+                  <Route exact path='/projects/2'>
+                    <Project projectsById={this.state.projectsById}
+                              tasksById={this.state.tasksById}   
+                              full={1}   
+                              id={2}
+                      />
+                  </Route>  
 
-               <Redirect to="/" />
-        </Switch>
-          </ThemeContext.Provider>  
-                    
-          </div>
-        </BrowserRouter>
+                <Redirect to="/" />
+          </Switch>
+            </ThemeContext.Provider>  
+                      
+            </div>
+            </BrowserRouter>
+          </Provider>
         </div>
     )
 }

@@ -3,9 +3,17 @@ import styles from './Item.module.scss'
 import classnames from 'classnames/bind'
 import {ThemeContext} from "..//..//ThemeContext"
 
+import { connect } from "react-redux";
 
 const cx=classnames.bind(styles)
-
+/*
+const mapStateToProps = (state) => ({
+  title: state.post.title,
+  image: state.post.image,
+  body: state.post.body,
+  theme: state.theme.theme,
+});
+*/
 
 const Item = (props) => {
       return(<ThemeContext.Consumer> 

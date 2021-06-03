@@ -65,6 +65,15 @@ onChangeTask = (id) => {
       this.setState({certainTasks:newD})
       }  
 
+      addCertainTask = ({name, description}) => {
+        const obj = {
+              id: this.state.data.length+1,
+              name: name,
+              description: description,
+              completed: false}
+            this.setState({certainTasks: [...this.state.certainTasks, obj]})
+        }  
+
  render(){
   if (this.state.allOrCertain) //0 - all 1 - certain
         return (
@@ -79,7 +88,7 @@ onChangeTask = (id) => {
                                                     />)}
                     
                 </div>
-                <Add taskOrProject={1} class={styles.input} buttonClick={this.addTask}/>
+                <Add taskOrProject={1} class={styles.input} buttonClick={this.addCertainTask}/>
 
             </div>
             
