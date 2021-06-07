@@ -4,18 +4,13 @@ import styles from './List.module.scss'
 
 import {Item} from '..//..//components/Item/Item.js'
 import Add from '..//..//components/Add/Add.js'
-
-import data from '..//..//Data/tasks.js'
-
 import {Redirect} from 'react-router-dom'
-import projects from '..//..//Data/projects.js'
 import normalizeState from '..//..//Data/normalizeState'
-import { render } from '@testing-library/react';
 import {handleAddItem, handleChangeItem} from "../../actions/Item";
 
 import { connect } from 'react-redux'
-const {projectsById, tasksById} = normalizeState(projects)
-
+//const {projectsById, tasksById} = normalizeState(projects)
+/*
   const tasks = []
   for (let taskId in tasksById) {
     const task = tasksById[taskId]
@@ -25,11 +20,11 @@ const {projectsById, tasksById} = normalizeState(projects)
         description: task.description,
         completed: task.completed
     })
-} 
+} */
     
 const mapStateToProps = (state) => ({
-  tasks: state.tasks.tasksById,
-  projects: state.tasks.projectsById,
+  tasks: state.tasksByIds.tasks,
+  projects: state.projectsByIds.projects,
   theme: state.theme.theme
 })
 

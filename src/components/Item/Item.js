@@ -6,22 +6,29 @@ import {ThemeContext} from "..//..//ThemeContext"
 import { connect } from "react-redux";
 
 const cx=classnames.bind(styles)
+
 const mapStateToProps = (state) => ({
-  theme: state.theme.theme
+  tasks: state.tasksByIds.tasks
 })
 
-const ItemComponent = (props) => {
+const ItemComponent = ({id, tasks}) => {
+  const itemic = {
+    name: tasks[id].name,
+    description: tasks[id].description,
+    completed: tasks[id].completed
+  }
+
       return(<ThemeContext.Consumer> 
         {theme => (
               <div className={cx("box",`box-theme-${theme}`)}>
-                  <div class={cx("id", `id-theme-${theme}`)}>{props.id}</div>
-                  <div class={styles.name}>{props.name}</div>
-                  <div>{props.description}</div>
+                  <div class={cx("id", `id-theme-${theme}`)}>{id}</div>
+                  <div class={styles.name}>{itemic.name}</div>
+                  <div>{itemic.description}</div>
                   <div>
                     <button className={cx("changeStatusButton",
-                    `changeStatusButton-color-${props.completed}-${theme}`)} onClick={() => {
-                      props.onChangeTask(props.id)
-                    }}>{props.completed.toString()}</button>
+                    `changeStatusButton-color-${itemic.completed}-${theme}`)} onClick={() => {
+                      itemic.onChangeTask(itemic.id)
+                    }}>{itemic.completed.toString()}</button>
                     
                   </div>
               </div>
@@ -29,6 +36,6 @@ const ItemComponent = (props) => {
       </ThemeContext.Consumer>
       )
    }
-   //export default Item;
+
 
    export const Item = connect(mapStateToProps)(ItemComponent) 

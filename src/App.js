@@ -7,8 +7,8 @@ import { DEFAULT_THEME, ThemeContext } from "./ThemeContext"
 import { BrowserRouter, Switch, Route, Link, Redirect, withRouter } from "react-router-dom"
 import projects from './Data/projects.js'
 import normalizeState from './Data/normalizeState'
-import ProjectList from './components/ProjectList/ProjectList';
-import Project from './components/Project/Project';
+import {ProjectList} from './components/ProjectList/ProjectList';
+import {Project} from './components/Project/Project';
 import Add from './components/Add/Add.js'
 
 import { createStore } from 'redux'
@@ -80,11 +80,7 @@ class App extends React.Component {
                 <Route exact path='/tasks' component={List}>
                 </Route>
                 <Route exact path='/projects/0'>
-                    <Project projectsById={this.state.projectsById}
-                              tasksById={this.state.tasksById}   
-                              full={1}   
-                              id={0}
-                      />
+                    <Project full={1}  id={0}/>
                   </Route> 
                   <Route exact path='/projects/1'>
                     <Project projectsById={this.state.projectsById}

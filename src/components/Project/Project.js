@@ -5,31 +5,36 @@ import {ThemeContext} from "..//..//ThemeContext"
 import {List} from '..//..//components/List/List.js'
 import {useParams} from 'react-router-dom'
 import { BrowserRouter, Switch, Route, Link, Redirect, withRouter } from "react-router-dom"
+import { connect } from 'react-redux'
 
 const cx=classnames.bind(styles)
 
-const Project = ({id, full, projectsById, tasksById}) => {
-      console.log(id)
-      const project = projectsById[id]
+const mapStateToProps = (state) => {
+return(
+      {
+      projects: state.projectsByIds.projects,
+      tasks: state.tasksByIds.tasks,
+      theme: state.theme.theme
+      }
+      )
+  }
+
+const ProjectComponent = ({id, full, projects, tasks}) => {
+      const project = projects[id]
       const projectName = project?.name
       const tasksIds = project?.tasksIds
-      const tasks = tasksIds?.map( taskId => tasksById[taskId] )
-     return(<ThemeContext.Consumer> 
-        {theme => (
+      const tasksss = tasksIds?.map( taskId => tasks[taskId] )
+     return(
               <div>
                   <div>{id}</div>
                   <div>{projectName}</div>
                   <div>Tasks' ids: {tasksIds}</div>
                   <div> {full ?  <List 
-                  tasksList={tasks}
+                  tasksList={tasksss}
                   allOrCertain={1}
                   projectId={id}
                   /> : ""}</div>
-
                 </div>
-      
-            )}
-      </ThemeContext.Consumer>
-      )
-}
-   export default Project;
+      )}
+
+export const Project = connect(mapStateToProps)(ProjectComponent) 
