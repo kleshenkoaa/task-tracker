@@ -75,23 +75,22 @@ class App extends React.Component {
             <Route path="/" component={Header} />
               <Switch>  
                 <Route exact path='/projects' component={ProjectList}>
-                  <ProjectList projectsById={this.state.projectsById} tasksById={this.state.tasksById}/>
+                  <ProjectList/>
                 </Route>
-                <Route exact path='/tasks' component={List}>
+                <Route exact path='/tasks'>
+                  <List/>
                 </Route>
                 <Route exact path='/projects/0'>
                     <Project full={1}  id={0}/>
                   </Route> 
                   <Route exact path='/projects/1'>
-                    <Project projectsById={this.state.projectsById}
-                              tasksById={this.state.tasksById}   
+                    <Project  
                               full={1}   
                               id={1}
                       />
                   </Route> 
                   <Route exact path='/projects/2'>
-                    <Project projectsById={this.state.projectsById}
-                              tasksById={this.state.tasksById}   
+                    <Project 
                               full={1}   
                               id={2}
                       />

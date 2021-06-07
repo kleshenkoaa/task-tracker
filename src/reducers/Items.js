@@ -5,7 +5,8 @@ import projects from '../Data/projects.js'
 const {projectsById, tasksById} = normalizeState(projects)
 
 const initialState = {
-    tasks: tasksById
+    tasks: tasksById,
+    projects: projectsById
 }
 
 export const itemsReducer = (state = initialState, action) => {

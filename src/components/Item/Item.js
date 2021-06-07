@@ -4,6 +4,7 @@ import classnames from 'classnames/bind'
 import {ThemeContext} from "..//..//ThemeContext"
 
 import { connect } from "react-redux";
+import Add from '../Add/Add';
 
 const cx=classnames.bind(styles)
 
@@ -31,6 +32,7 @@ const ItemComponent = ({id, tasks}) => {
                     }}>{itemic.completed.toString()}</button>
                     
                   </div>
+                  
               </div>
             )}
       </ThemeContext.Consumer>

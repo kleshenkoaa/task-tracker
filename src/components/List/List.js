@@ -33,34 +33,38 @@ const mapStateToProps = (state) => ({
    dispatchChangeItem: (item) => dispatch(handleChangeItem(item))
  })
 
-const ListComponent = ({projectId, projects, tasks}) => {
-  
-  const searchForTask = (tasksIds, tasksList) => {
-    const specificTasksList = {}
-    Object.values(tasksIds)?.map( taskId => {
-        return Object.values(tasksList).map( (task) => {
-            return task.id.toString() === taskId.toString() 
-            ? specificTasksList[taskId] = task
-            : null
+const ListComponent = ({projectId, projects, tasks, allOrCertain}) => { //1 - certain 0 all
+    if (allOrCertain) {
+      const searchForTask = (Ids, taskList) => {
+        const specificTasksList = {}
+        Object.values(Ids)?.map( taskId => {
+            return Object.values(taskList).map( (task) => {
+                return task.id.toString() === taskId.toString() 
+                ? specificTasksList[taskId] = task
+                : null
+            })
         })
-    })
-    return specificTasksList
-  }
-
-  const projectTasksIds = projects[projectId]?.tasksIds
-  const projectTasks = searchForTask(projectTasksIds, tasks)
-
-  if (projectTasks) {
-    return (
-        Object.values(projectTasks).map( task => {
+        return specificTasksList
+        }
+        const projectTasksIds = projects[projectId]?.tasksIds
+        const projectTasks = searchForTask(projectTasksIds, tasks)
+        return (
+          Object.values(projectTasks).map( task => {
+              return (
+                  <Item id={task.id} class={styles.input}/>
+              )
+          })
+      )
+    }
+    else {
+        return(
+          Object.values(tasks).map( task => {
             return (
                 <Item id={task.id} class={styles.input}/>
             )
         })
-    )
-}
-else {
-    return (<Redirect to='/404'/>)
+        
+        )
 }
 }
 
