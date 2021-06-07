@@ -5,18 +5,32 @@ import styles from './Add.module.scss'
 
 const cx=classnames.bind(styles)
 
+const INITIAL_BUTTONS = {
+    name: "",
+    description: ""
+}
 class Add extends React.Component {
+    state = INITIAL_BUTTONS
     
-    state = {
-      name: "",
-      description: ""
-    }
   
     onChange = (event) => {
         const {value, name} = event.currentTarget
-        const newState = {...this.state.buttons, [name]: value}
+        const newState = {...this.state, [name]: value}
         this.setState(newState)
     }
+
+    onClick = () => {
+        this.props.buttonClick(this.state)
+        this.setState(INITIAL_BUTTONS)
+    }
+
+/*
+    onClick = (event) => {
+      const newTaskId = ++Object.keys(this.props.tasks)[Object.keys(this.props.tasks).length+1] // id новой таски = id последней + 1
+
+      return [ 
+        this.props.dispatchAddItem(newTaskId, this.state.name, this.state.description) ]
+    } */
   
     render() {
     const flg = this.props.taskOrProject
@@ -37,9 +51,8 @@ class Add extends React.Component {
                     <input value={this.state.description} name="description" onChange={this.onChange}/>
                 </div>
                 <button 
-                        onClick={() => {
-                            this.props.buttonClick(this.state)
-                        }}>
+                        onClick={this.onClick}
+                        >
                     Add
                 </button>
             </div>

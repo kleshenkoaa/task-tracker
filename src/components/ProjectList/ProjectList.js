@@ -36,7 +36,8 @@ const ProjectListComponent = ({projects}) => {
     this.setState({projects: [...this.state.projects, obj]})
   } */
 
-        return Object.values(projects).map( proj => {
+        return (
+          <div>{Object.values(projects).map( proj => {
           return (
             <div>
               <div>
@@ -49,12 +50,13 @@ const ProjectListComponent = ({projects}) => {
                   </Project>
                 </Link>
                 </div> 
-               
               </div>
-
           )
         })
-      }
+       }
+       <Add taskOrProject={0}></Add>
+       </div>
+        ) }
 export const ProjectList = connect(mapStateToProps)(ProjectListComponent) 
 
 

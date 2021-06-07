@@ -14,7 +14,7 @@ export const itemsReducer = (state = initialState, action) => {
         case CHANGE_ITEM: {
             let taskToChangeStatusID = action.id
             let updatedTasksList = {...state.tasks}
-            updatedTasksList[taskToChangeStatusID].completed = !action.status
+            updatedTasksList[taskToChangeStatusID].completed = !action.completed
             return {
                 ...state,
                 tasks: updatedTasksList

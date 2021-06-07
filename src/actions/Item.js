@@ -1,12 +1,15 @@
 export const ADD_ITEM = 'ADD_ITEM'
 export const CHANGE_ITEM = 'CHANGE_ITEM'
 
-export const handleAddItem = list => ({ // action creator
+export const handleAddItem = ({taskId, taskName, taskDescription}) => ({ // action creator
   type: ADD_ITEM,
-  payload: list
+  taskId: taskId,
+  taskName: taskName,
+  taskDescription: taskDescription
 })
 
-export const handleChangeItem = list => ({ // action creator
+export const handleChangeItem = (id, completed) => ({ // action creator
   type: CHANGE_ITEM,
-  payload: list
+  id: id,
+  completed: completed
 })

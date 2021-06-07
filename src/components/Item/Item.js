@@ -2,7 +2,7 @@ import React from 'react';
 import styles from './Item.module.scss'
 import classnames from 'classnames/bind'
 import {ThemeContext} from "..//..//ThemeContext"
-
+import {handleAddItem, handleChangeItem} from "../../actions/Item";
 import { connect } from "react-redux";
 import Add from '../Add/Add';
 
@@ -12,12 +12,22 @@ const mapStateToProps = (state) => ({
   tasks: state.tasksByIds.tasks
 })
 
-const ItemComponent = ({id, tasks}) => {
-  const itemic = {
-    name: tasks[id].name,
-    description: tasks[id].description,
-    completed: tasks[id].completed
-  }
+const mapDispatchToProps = (dispatch) => ({
+  dispatchChangeItem: (id, completed) => dispatch(handleChangeItem(id, completed)),
+ 
+})
+
+const ItemComponent = ({
+    tasks,
+    id, 
+    dispatchChangeItem, 
+}) => {
+
+    const itemic = {
+      name: tasks[id].name,
+      description: tasks[id].description,
+      completed: tasks[id].completed
+      }
 
       return(<ThemeContext.Consumer> 
         {theme => (
@@ -28,16 +38,13 @@ const ItemComponent = ({id, tasks}) => {
                   <div>
                     <button className={cx("changeStatusButton",
                     `changeStatusButton-color-${itemic.completed}-${theme}`)} onClick={() => {
-                      itemic.onChangeTask(itemic.id)
+                      dispatchChangeItem(id, itemic.completed)
                     }}>{itemic.completed.toString()}</button>
-                    
                   </div>
-                  
               </div>
             )}
       </ThemeContext.Consumer>
       )
-   }
+    }
 
-
-   export const Item = connect(mapStateToProps)(ItemComponent) 
+   export const Item = connect(mapStateToProps, mapDispatchToProps)(ItemComponent) 

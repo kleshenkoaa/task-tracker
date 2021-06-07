@@ -29,11 +29,28 @@ const mapStateToProps = (state) => ({
 })
 
  const mapDispatchToProps = (dispatch) => ({
-   dispatchAddItem: (newItem) => dispatch(handleAddItem(newItem)),
-   dispatchChangeItem: (item) => dispatch(handleChangeItem(item))
+  dispatchAddItem: (id, name, desc) => dispatch(handleAddItem(id, name, desc))
  })
 
-const ListComponent = ({projectId, projects, tasks, allOrCertain}) => { //1 - certain 0 all
+ const onClickAddEvent = ({tasks, name, description}) => {
+  const obj = {
+      id: tasks.length + 1,
+      name: name,
+      description: description,
+      completed: false
+  }
+}
+
+const ListComponent = ({
+  projectId, 
+  projects, 
+  tasks, 
+  allOrCertain,
+  dispatchAddItem
+                  }) => { //1 - certain 0 all
+
+    
+
     if (allOrCertain) {
       const searchForTask = (Ids, taskList) => {
         const specificTasksList = {}
@@ -49,24 +66,30 @@ const ListComponent = ({projectId, projects, tasks, allOrCertain}) => { //1 - ce
         const projectTasksIds = projects[projectId]?.tasksIds
         const projectTasks = searchForTask(projectTasksIds, tasks)
         return (
+          <div>{
           Object.values(projectTasks).map( task => {
               return (
                   <Item id={task.id} class={styles.input}/>
               )
-          })
+          })} 
+          
+          </div>
       )
     }
     else {
         return(
-          Object.values(tasks).map( task => {
+          <div>
+          { Object.values(tasks).map( task => {
             return (
                 <Item id={task.id} class={styles.input}/>
             )
-        })
-        
+          })}
+          <Add taskOrProject={1} tasks={tasks} buttonCLick={onClickAddEvent}></Add>
+        </div>
         )
+  }
 }
-}
+
 
   /*
   state ={
@@ -156,4 +179,4 @@ onChangeTask = (id) => {
 
 */
 
-export const List = connect(mapStateToProps)(ListComponent) 
+export const List = connect(mapStateToProps, mapDispatchToProps)(ListComponent) 
