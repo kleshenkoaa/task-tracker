@@ -6,16 +6,11 @@ import {ThemeContext} from "..//..//ThemeContext"
 import { connect } from "react-redux";
 
 const cx=classnames.bind(styles)
-/*
 const mapStateToProps = (state) => ({
-  title: state.post.title,
-  image: state.post.image,
-  body: state.post.body,
-  theme: state.theme.theme,
-});
-*/
+  theme: state.theme.theme
+})
 
-const Item = (props) => {
+const ItemComponent = (props) => {
       return(<ThemeContext.Consumer> 
         {theme => (
               <div className={cx("box",`box-theme-${theme}`)}>
@@ -34,4 +29,6 @@ const Item = (props) => {
       </ThemeContext.Consumer>
       )
    }
-   export default Item;
+   //export default Item;
+
+   export const Item = connect(mapStateToProps)(ItemComponent) 

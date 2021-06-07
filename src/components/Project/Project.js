@@ -2,7 +2,7 @@ import React from 'react';
 import styles from './Project.module.scss'
 import classnames from 'classnames/bind'
 import {ThemeContext} from "..//..//ThemeContext"
-import List from '..//..//components/List/List.js'
+import {List} from '..//..//components/List/List.js'
 import {useParams} from 'react-router-dom'
 import { BrowserRouter, Switch, Route, Link, Redirect, withRouter } from "react-router-dom"
 
@@ -23,6 +23,7 @@ const Project = ({id, full, projectsById, tasksById}) => {
                   <div> {full ?  <List 
                   tasksList={tasks}
                   allOrCertain={1}
+                  projectId={id}
                   /> : ""}</div>
 
                 </div>

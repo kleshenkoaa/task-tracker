@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from './App.module.scss'
 import classnames from 'classnames/bind'
-import List from './components/List/List.js'
+import {List} from './components/List/List.js'
 //import ProjectsList from './components/ProjectsList/projectsList.js'
 import { DEFAULT_THEME, ThemeContext } from "./ThemeContext"
 import { BrowserRouter, Switch, Route, Link, Redirect, withRouter } from "react-router-dom"
@@ -78,7 +78,6 @@ class App extends React.Component {
                   <ProjectList projectsById={this.state.projectsById} tasksById={this.state.tasksById}/>
                 </Route>
                 <Route exact path='/tasks' component={List}>
-                  <List allOrCertain={0} tasksById={this.state.tasksById} />
                 </Route>
                 <Route exact path='/projects/0'>
                     <Project projectsById={this.state.projectsById}

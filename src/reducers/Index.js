@@ -1,8 +1,10 @@
 import { combineReducers } from "redux";
-//import { postReducer } from "./post";
+import { itemsReducer } from "./Items";
+import { projectsReducer } from "./Project";
 import { themeReducer } from "./Theme";
 
 export const rootReducer = combineReducers({
   theme: themeReducer,
-//  post: postReducer,
+  tasks: itemsReducer,
+  tasks: projectsReducer,
 });

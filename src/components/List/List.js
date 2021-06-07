@@ -2,7 +2,7 @@ import React from 'react';
 
 import styles from './List.module.scss'
 
-import Item from '..//..//components/Item/Item.js'
+import {Item} from '..//..//components/Item/Item.js'
 import Add from '..//..//components/Add/Add.js'
 
 import data from '..//..//Data/tasks.js'
@@ -11,9 +11,9 @@ import {Redirect} from 'react-router-dom'
 import projects from '..//..//Data/projects.js'
 import normalizeState from '..//..//Data/normalizeState'
 import { render } from '@testing-library/react';
+import {handleAddItem, handleChangeItem} from "../../actions/Item";
 
-
-
+import { connect } from 'react-redux'
 const {projectsById, tasksById} = normalizeState(projects)
 
   const tasks = []
@@ -27,12 +27,51 @@ const {projectsById, tasksById} = normalizeState(projects)
     })
 } 
     
+const mapStateToProps = (state) => ({
+  tasks: state.tasks.tasksById,
+  projects: state.tasks.projectsById,
+  theme: state.theme.theme
+})
 
+ const mapDispatchToProps = (dispatch) => ({
+   dispatchAddItem: (newItem) => dispatch(handleAddItem(newItem)),
+   dispatchChangeItem: (item) => dispatch(handleChangeItem(item))
+ })
 
-class List extends React.Component {
+const ListComponent = ({projectId, projects, tasks}) => {
+  
+  const searchForTask = (tasksIds, tasksList) => {
+    const specificTasksList = {}
+    Object.values(tasksIds)?.map( taskId => {
+        return Object.values(tasksList).map( (task) => {
+            return task.id.toString() === taskId.toString() 
+            ? specificTasksList[taskId] = task
+            : null
+        })
+    })
+    return specificTasksList
+  }
 
+  const projectTasksIds = projects[projectId]?.tasksIds
+  const projectTasks = searchForTask(projectTasksIds, tasks)
+
+  if (projectTasks) {
+    return (
+        Object.values(projectTasks).map( task => {
+            return (
+                <Item id={task.id} class={styles.input}/>
+            )
+        })
+    )
+}
+else {
+    return (<Redirect to='/404'/>)
+}
+}
+
+  /*
   state ={
-    data: tasks,
+    data: [],
     certainTasks: this.props.tasksList,
     allOrCertain: this.props.allOrCertain
   }
@@ -45,8 +84,8 @@ class List extends React.Component {
         completed: false
     }
     this.setState({data: [...this.state.data, obj]})
-}
-
+} */
+/*
 onChangeTask = (id) => {
     const newData = this.state.data.map(it => {
         if (it.id === id) {
@@ -72,8 +111,8 @@ onChangeTask = (id) => {
               description: description,
               completed: false}
             this.setState({certainTasks: [...this.state.certainTasks, obj]})
-        }  
-
+        }  */ 
+/*
  render(){
   if (this.state.allOrCertain) //0 - all 1 - certain
         return (
@@ -115,3 +154,7 @@ onChangeTask = (id) => {
 
 
   export default List;
+
+*/
+
+export const List = connect(mapStateToProps)(ListComponent) 
