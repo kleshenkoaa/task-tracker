@@ -19,6 +19,8 @@ const mapStateToProps = (state) => ({
 
  const mapDispatchToProps = (dispatch) => ({
   dispatchAddItem: (id, name, desc) => dispatch(handleAddItem(id, name, desc)),
+  dispatchAddItemInProject: (projectId, id, name, desc) => dispatch(handleProjectTaskAdd(projectId, id, name, desc)),
+
  })
 
  const onClickAddEvent = ({name, description}) => {
@@ -54,7 +56,7 @@ const ListComponent = ({
   ddispatchAddItemInProject
                   }) => { //1 - certain 0 all
 
-    
+    console.log('its rendernimg list full', tasks, projects)
 
     if (allOrCertain) {
       const searchForTask = (Ids, taskList) => {

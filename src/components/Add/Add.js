@@ -50,7 +50,6 @@ class AddComponent extends React.Component {
         this.props.dispatchAddProject(proj.id, proj.name)
     }
 
-    
     onClickAddEventTaskProject = (event) => {
     const itemId = Object.entries(this.props.tasks).length + 1
     const projectId = this.props.projectId
@@ -59,7 +58,7 @@ class AddComponent extends React.Component {
         this.props.dispatchAddItemInProject(projectId, itemId, this.state.name, this.state.description)
     )
   }
-  
+    
 
     onChange = (event) => {
         const {value, name} = event.currentTarget

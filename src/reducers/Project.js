@@ -29,24 +29,34 @@ export const projectsReducer = (state = initialState, action) => {
           }
         case PROJECT_TASK_ADD: {
           const {projectId, taskId, taskName, taskDescription} = action
-          const newTasksList = {...state.tasks}
+          
             const item ={
             id: taskId,
             name: taskName,
             description: taskDescription,
             completed: false, 
             projectId: projectId
-          }
+          } 
+            let it = {
+
+            }
+            it[item.id] = item
             console.log(item)
-            newTasksList[taskId] = item
+            const newTasksList = {...state.tasks}
             const newProjectList = {...state.projects}
             newProjectList[item.projectId].tasksIds.push(item.id)
             console.log("action  1", action)
             console.log("action  1 newProjectList", newProjectList)
-            console.log("action  1 newTasksList", newTasksList)
+            console.log( Object.assign({...state.tasks}, it))
+           // console.log("action  1 newTasksList", newTasksList)
+           
             return { 
-              ...state, 
-              tasks: newTasksList, 
+              //...state, 
+              //tasks: newTasksList, 
+             /// projects: newProjectList
+
+              ...state,
+              tasks: Object.assign({...state.tasks}, {...it}),
               projects: newProjectList
           }
         }
