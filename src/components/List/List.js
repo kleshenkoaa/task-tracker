@@ -32,13 +32,15 @@ const mapStateToProps = (state) => ({
   dispatchAddItem: (id, name, desc) => dispatch(handleAddItem(id, name, desc))
  })
 
- const onClickAddEvent = ({tasks, name, description}) => {
+ const onClickAddEvent = ({name, description}) => {
   const obj = {
-      id: tasks.length + 1,
-      name: name,
-      description: description,
-      completed: false
+    id: Object.entries(this.props.tasks).length + 1,
+    name: name,
+    description: description,
+    completed: false
   }
+  this.props.dispatchAddItem(obj.id, obj.name, obj.description)
+
 }
 
 const ListComponent = ({
@@ -84,99 +86,10 @@ const ListComponent = ({
                 <Item id={task.id} class={styles.input}/>
             )
           })}
-          <Add taskOrProject={1} tasks={tasks} buttonCLick={onClickAddEvent}></Add>
+          <Add taskOrProject={1} tasks={tasks} onCLick={onClickAddEvent}></Add>
+          <p>{console.log(tasks)}</p>
         </div>
         )
   }
 }
-
-
-  /*
-  state ={
-    data: [],
-    certainTasks: this.props.tasksList,
-    allOrCertain: this.props.allOrCertain
-  }
-  
-  addTask = ({name, description}) => {
-    const obj = {
-        id: this.state.data.length+1,
-        name: name,
-        description: description,
-        completed: false
-    }
-    this.setState({data: [...this.state.data, obj]})
-} */
-/*
-onChangeTask = (id) => {
-    const newData = this.state.data.map(it => {
-        if (it.id === id) {
-            it.completed = !it.completed
-        }
-        return it})
-    this.setState({data:newData})
-    }
-    
-    onChangeCertainTask = (id) => {
-      const newD = this.state.certainTasks.map(it => {
-          if (it.id === id) {
-              it.completed = !it.completed
-          }
-          return it})
-      this.setState({certainTasks:newD})
-      }  
-
-      addCertainTask = ({name, description}) => {
-        const obj = {
-              id: this.state.data.length+1,
-              name: name,
-              description: description,
-              completed: false}
-            this.setState({certainTasks: [...this.state.certainTasks, obj]})
-        }  */ 
-/*
- render(){
-  if (this.state.allOrCertain) //0 - all 1 - certain
-        return (
-            <div>
-                <div>
-                    {this.state.certainTasks.map(it => <Item class={styles.input} id={it.id}
-                                                    name={it.name}
-                                                    description={it.description}
-                                                    completed={it.completed}
-                                                    onChangeTask={this.onChangeCertainTask}
-                                                    index={this.state.certainTasks.findIndex((el) => el.id === it.id)}
-                                                    />)}
-                    
-                </div>
-                <Add taskOrProject={1} class={styles.input} buttonClick={this.addCertainTask}/>
-
-            </div>
-            
-        )
-  else if (!this.state.allOrCertain) {
-    return(
-      <div>
-        <div>{console.log(this.state.data)}</div>
-        <div>
-             {this.state.data.map(it => <Item class={styles.input}  id={it.id}
-                                                    name={it.name}
-                                                    description={it.description}
-                                                    completed={it.completed}
-                                                    index={this.state.data.findIndex((el) => el.id === it.id)}
-                                                    onChangeTask={this.onChangeTask}
-                                                    />)}
-                    
-          </div>
-          <Add class={styles.input} taskOrProject={1} buttonClick={this.addTask}/>
-      </div>
-    )
-}
-}}
-
-
-  export default List;
-
-*/
-
 export const List = connect(mapStateToProps, mapDispatchToProps)(ListComponent) 

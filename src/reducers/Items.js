@@ -13,7 +13,7 @@ export const itemsReducer = (state = initialState, action) => {
     switch (action.type) {
         case CHANGE_ITEM: {
             let taskToChangeStatusID = action.id
-            let updatedTasksList = {...state.tasks}
+            let updatedTasksList = {...initialState.tasks}
             updatedTasksList[taskToChangeStatusID].completed = !action.completed
             return {
                 ...state,
@@ -22,7 +22,7 @@ export const itemsReducer = (state = initialState, action) => {
         }
         case ADD_ITEM: {
             const {id, name, description} = action
-            const newTasksList = {...state.tasks}
+            const newTasksList = {...initialState.tasks}
             newTasksList[id] = {
               id: id,
               name: name,

@@ -18,11 +18,11 @@ class Add extends React.Component {
         const newState = {...this.state, [name]: value}
         this.setState(newState)
     }
-
-    onClick = () => {
+    confirmAddClick = () => {
         this.props.buttonClick(this.state)
         this.setState(INITIAL_BUTTONS)
     }
+ 
 
 /*
     onClick = (event) => {
@@ -51,7 +51,7 @@ class Add extends React.Component {
                     <input value={this.state.description} name="description" onChange={this.onChange}/>
                 </div>
                 <button 
-                        onClick={this.onClick}
+                        onClick={this.confirmAddClick}
                         >
                     Add
                 </button>
