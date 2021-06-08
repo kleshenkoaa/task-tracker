@@ -1,4 +1,4 @@
-import { ADD_PROJECT, CHANGE_PROJECT } from "../actions/Project";
+import { ADD_PROJECT, CHANGE_PROJECT, PROJECT_TASK_ADD } from "../actions/Project";
 
 import projects from '../Data/projects.js'
 import normalizeState from '../Data/normalizeState.js'
@@ -27,6 +27,29 @@ export const projectsReducer = (state = initialState, action) => {
               projects: newProjectsList
             }
           }
+        case PROJECT_TASK_ADD: {
+          const {projectId, taskId, taskName, taskDescription} = action
+          const newTasksList = {...state.tasks}
+            const item ={
+            id: taskId,
+            name: taskName,
+            description: taskDescription,
+            completed: false, 
+            projectId: projectId
+          }
+            console.log(item)
+            newTasksList[taskId] = item
+            const newProjectList = {...state.projects}
+            newProjectList[item.projectId].tasksIds.push(item.id)
+            console.log("action  1", action)
+            console.log("action  1 newProjectList", newProjectList)
+            console.log("action  1 newTasksList", newTasksList)
+            return { 
+              ...state, 
+              tasks: newTasksList, 
+              projects: newProjectList
+          }
+        }
         default:
             return state
     }

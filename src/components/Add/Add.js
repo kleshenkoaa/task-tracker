@@ -2,15 +2,16 @@ import React from 'react';
 import { ThemeContext } from '../../ThemeContext';
 import classnames from 'classnames/bind'
 import styles from './Add.module.scss'
-import {handleAddItem} from "../../actions/Item";
-import {handleAddProject} from "../../actions/Project";
+import {handleAddItem, handleAddItemInProject} from "../../actions/Item";
+import {handleAddProject, handleProjectTaskAdd} from "../../actions/Project";
 import { connect } from 'react-redux';
 
 const cx=classnames.bind(styles)
 
 const INITIAL_BUTTONS = {
     name: "",
-    description: ""
+    description: "",
+    projectId: -1
 }
 
 const mapStateToProps = (state) => ({
@@ -20,6 +21,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
     dispatchAddItem: (id, name, desc) => dispatch(handleAddItem(id, name, desc)),
+    dispatchAddItemInProject: (projectId, id, name, desc) => dispatch(handleProjectTaskAdd(projectId, id, name, desc)),
     dispatchAddProject: (id, name) => dispatch(handleAddProject(id, name))
    })
 
@@ -48,6 +50,17 @@ class AddComponent extends React.Component {
         this.props.dispatchAddProject(proj.id, proj.name)
     }
 
+    
+    onClickAddEventTaskProject = (event) => {
+    const itemId = Object.entries(this.props.tasks).length + 1
+    const projectId = this.props.projectId
+    console.log('add event', itemId, projectId, this.state.name)
+    return (
+        this.props.dispatchAddItemInProject(projectId, itemId, this.state.name, this.state.description)
+    )
+  }
+  
+
     onChange = (event) => {
         const {value, name} = event.currentTarget
         const newState = {...this.state, [name]: value}
@@ -65,10 +78,17 @@ class AddComponent extends React.Component {
         this.setState(INITIAL_BUTTONS)
     }
 
+    confirmAddClickTaskProject = () => {
+        console.log(this.state)
+        this.onClickAddEventTaskProject(this.state)
+        this.setState(INITIAL_BUTTONS)
+    }
+
+
   
     render() {
     const flg = this.props.taskOrProject
-       if (flg) { //1 - task
+       if (flg && !this.props.projectId) { //1 - task
             return (
         <ThemeContext.Consumer>
             {
@@ -87,7 +107,7 @@ class AddComponent extends React.Component {
                 <button 
                         onClick={this.confirmAddClick}
                         >
-                    Add
+                    Addeeer
                 </button>
             </div>
             </div>
@@ -95,6 +115,34 @@ class AddComponent extends React.Component {
             }
         </ThemeContext.Consumer>
         )
+    }
+    else if (flg && this.props.projectId) {
+        return (
+            <ThemeContext.Consumer>
+                {
+               theme => ( 
+              <div className={cx("container", `container-theme-${theme}`)}>
+                <h2>Add task</h2>
+                <div class="inputStyle">
+                    <div class="inputInnerStyle">
+                        Name:
+                        <input value={this.state.name} name="name" onChange={this.onChange}/>
+                    </div>
+                    <div class="inputInnerStyle">
+                        Description:
+                        <input value={this.state.description} name="description" onChange={this.onChange}/>
+                    </div>
+                    <button 
+                            onClick={this.confirmAddClickTaskProject}
+                            >
+                        Add
+                    </button>
+                </div>
+                </div>
+               )
+                }
+            </ThemeContext.Consumer>
+            )
     }
     else {  //0-project
         return (

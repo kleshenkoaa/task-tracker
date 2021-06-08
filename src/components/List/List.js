@@ -6,21 +6,10 @@ import {Item} from '..//..//components/Item/Item.js'
 import {Add} from '../Add/Add.js'
 import {Redirect} from 'react-router-dom'
 import normalizeState from '..//..//Data/normalizeState'
-import {handleAddItem, handleChangeItem} from "../../actions/Item";
-
+import {handleAddItem, handleAddItemInProject, handleChangeItem} from "../../actions/Item";
+import {handleProjectTaskAdd} from "../../actions/Project";
 import { connect } from 'react-redux'
-//const {projectsById, tasksById} = normalizeState(projects)
-/*
-  const tasks = []
-  for (let taskId in tasksById) {
-    const task = tasksById[taskId]
-    tasks.push({
-        id: task.id,
-        name: task.name,
-        description: task.description,
-        completed: task.completed
-    })
-} */
+
     
 const mapStateToProps = (state) => ({
   tasks: state.tasksByIds.tasks,
@@ -29,7 +18,7 @@ const mapStateToProps = (state) => ({
 })
 
  const mapDispatchToProps = (dispatch) => ({
-  dispatchAddItem: (id, name, desc) => dispatch(handleAddItem(id, name, desc))
+  dispatchAddItem: (id, name, desc) => dispatch(handleAddItem(id, name, desc)),
  })
 
  const onClickAddEvent = ({name, description}) => {
@@ -40,15 +29,29 @@ const mapStateToProps = (state) => ({
     completed: false
   }
   this.props.dispatchAddItem(obj.id, obj.name, obj.description)
-
+  console.log('11')
 }
+
+const onClickAddEventTaskProject = ({name, description}) => {
+  const obj = {
+    id: Object.entries(this.props.tasks).length + 1,
+    name: name,
+    description: description,
+    completed: false, 
+    projectId: Object.entries(this.props.projectId)
+  }
+  this.props.dispatchAddItemInProject(obj.id, obj.name, obj.description, obj.projectId)
+  console.log('pip1')
+}
+
 
 const ListComponent = ({
   projectId, 
   projects, 
   tasks, 
   allOrCertain,
-  dispatchAddItem
+  dispatchAddItem, 
+  ddispatchAddItemInProject
                   }) => { //1 - certain 0 all
 
     
@@ -74,7 +77,8 @@ const ListComponent = ({
                   <Item id={task.id} class={styles.input}/>
               )
           })} 
-          
+           <Add taskOrProject={1} tasks={projectTasks} projectId={projectId} onCLick={onClickAddEventTaskProject}></Add>
+           <p>{console.log('aaaaaa')}</p>
           </div>
       )
     }
@@ -87,7 +91,7 @@ const ListComponent = ({
             )
           })}
           <Add taskOrProject={1} tasks={tasks} onCLick={onClickAddEvent}></Add>
-          <p>{console.log(tasks)}</p>
+          <p>{console.log('pppp')}</p>
         </div>
         )
   }

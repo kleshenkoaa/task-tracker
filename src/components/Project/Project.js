@@ -23,7 +23,9 @@ const ProjectComponent = ({id, full, projects, tasks}) => {
       const project = projects[id]
       const projectName = project?.name
       const tasksIds = project?.tasksIds
-      const tasksss = tasksIds?.map( taskId => tasks[taskId] )
+      console.log(tasksIds)
+      const tasksss = tasksIds.map( taskId => tasks[taskId] )
+      console.log(tasksss)
      return(
               <div>
                   <div>{id}</div>
