@@ -3,7 +3,7 @@ import React from 'react';
 import styles from './List.module.scss'
 
 import {Item} from '..//..//components/Item/Item.js'
-import Add from '..//..//components/Add/Add.js'
+import {Add} from '../Add/Add.js'
 import {Redirect} from 'react-router-dom'
 import normalizeState from '..//..//Data/normalizeState'
 import {handleAddItem, handleChangeItem} from "../../actions/Item";

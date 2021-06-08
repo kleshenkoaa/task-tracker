@@ -1,9 +1,10 @@
 export const ADD_PROJECT = 'ADD_PROJECT'
 export const CHANGE_PROJECT = 'CHANGE_PROJECT'
 
-export const handleAddProject = projectList => ({ // action creator
+export const handleAddProject = (projectId, projectName) => ({ // action creator
   type: ADD_PROJECT,
-  payload: projectList
+  projectId: projectId,
+  projectName: projectName
 })
 
 export const handleChangeProject = projectList => ({ // action creator

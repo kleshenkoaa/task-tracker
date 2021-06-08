@@ -2,6 +2,9 @@ import React from 'react';
 import { ThemeContext } from '../../ThemeContext';
 import classnames from 'classnames/bind'
 import styles from './Add.module.scss'
+import {handleAddItem} from "../../actions/Item";
+import {handleAddProject} from "../../actions/Project";
+import { connect } from 'react-redux';
 
 const cx=classnames.bind(styles)
 
@@ -9,28 +12,59 @@ const INITIAL_BUTTONS = {
     name: "",
     description: ""
 }
-class Add extends React.Component {
+
+const mapStateToProps = (state) => ({
+    tasks: state.tasksByIds.tasks,
+    projects: state.projectsByIds.projects
+  })
+
+const mapDispatchToProps = (dispatch) => ({
+    dispatchAddItem: (id, name, desc) => dispatch(handleAddItem(id, name, desc)),
+    dispatchAddProject: (id, name) => dispatch(handleAddProject(id, name))
+   })
+
+class AddComponent extends React.Component {
     state = INITIAL_BUTTONS
     
   
+    onClickAddEvent = ({name, description}) => {
+        const obj = {
+          id: Object.entries(this.props.tasks).length + 1,
+          name: name,
+          description: description,
+          completed: false
+        }
+        console.log("add event", obj)
+        this.props.dispatchAddItem(obj.id, obj.name, obj.description)
+    }
+
+    onClickAddEventProject = ({name}) => {
+        const proj = {
+          id: Object.entries(this.props.projects).length + 1,
+          name: name,
+          taskIds: []
+        }
+        console.log("add event", proj)
+        this.props.dispatchAddProject(proj.id, proj.name)
+    }
+
     onChange = (event) => {
         const {value, name} = event.currentTarget
         const newState = {...this.state, [name]: value}
         this.setState(newState)
     }
     confirmAddClick = () => {
-        this.props.buttonClick(this.state)
+        console.log(this.state)
+        this.onClickAddEvent(this.state)
         this.setState(INITIAL_BUTTONS)
     }
- 
 
-/*
-    onClick = (event) => {
-      const newTaskId = ++Object.keys(this.props.tasks)[Object.keys(this.props.tasks).length+1] // id новой таски = id последней + 1
+    confirmAddClickProject = () => {
+        console.log(this.state)
+        this.onClickAddEventProject(this.state)
+        this.setState(INITIAL_BUTTONS)
+    }
 
-      return [ 
-        this.props.dispatchAddItem(newTaskId, this.state.name, this.state.description) ]
-    } */
   
     render() {
     const flg = this.props.taskOrProject
@@ -75,9 +109,7 @@ class Add extends React.Component {
                         <input value={this.state.name} name="name" onChange={this.onChange}/>
                     </div>
                     <button 
-                            onClick={() => {
-                                this.props.buttonClick(this.state)
-                            }}>
+                             onClick={this.confirmAddClickProject}>
                         Add
                     </button>
                 </div>
@@ -90,4 +122,4 @@ class Add extends React.Component {
     }
   }
 
-  export default Add;
+  export const Add = connect(mapStateToProps, mapDispatchToProps)(AddComponent);

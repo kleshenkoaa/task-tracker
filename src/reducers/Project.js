@@ -14,11 +14,19 @@ const initialState = {
 export const projectsReducer = (state = initialState, action) => {
     switch (action.type) {
         case ADD_PROJECT: {
-            return {
-                ...state,
-                projects: Object.assign({...state.projects}, action.payload)
+        const {projectId, projectName} = action
+            const newProjectsList = {...state.projects}
+            newProjectsList[projectId] = {
+              id: projectId,
+              name: projectName,
+              taskIds: []
             }
-        }
+            console.log("action", action)
+            return { 
+              ...state, 
+              projects: newProjectsList
+            }
+          }
         default:
             return state
     }
