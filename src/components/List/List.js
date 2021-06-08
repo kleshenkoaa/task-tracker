@@ -2,107 +2,100 @@ import React from 'react';
 
 import styles from './List.module.scss'
 
-import Item from '..//..//components/Item/Item.js'
-import Add from '..//..//components/Add/Add.js'
-
-import data from '..//..//Data/tasks.js'
-
+import {Item} from '..//..//components/Item/Item.js'
+import {Add} from '../Add/Add.js'
 import {Redirect} from 'react-router-dom'
-import projects from '..//..//Data/projects.js'
 import normalizeState from '..//..//Data/normalizeState'
-import { render } from '@testing-library/react';
+import {handleAddItem, handleAddItemInProject, handleChangeItem} from "../../actions/Item";
+import {handleProjectTaskAdd} from "../../actions/Project";
+import { connect } from 'react-redux'
 
-
-
-const {projectsById, tasksById} = normalizeState(projects)
-
-  const tasks = []
-  for (let taskId in tasksById) {
-    const task = tasksById[taskId]
-    tasks.push({
-        id: task.id,
-        name: task.name,
-        description: task.description,
-        completed: task.completed
-    })
-} 
     
+const mapStateToProps = (state) => ({
+  tasks: state.tasksByIds.tasks,
+  projects: state.projectsByIds.projects,
+  theme: state.theme.theme
+})
 
+ const mapDispatchToProps = (dispatch) => ({
+  dispatchAddItem: (id, name, desc) => dispatch(handleAddItem(id, name, desc)),
+  dispatchAddItemInProject: (projectId, id, name, desc) => dispatch(handleProjectTaskAdd(projectId, id, name, desc)),
 
-class List extends React.Component {
+ })
 
-  state ={
-    data: tasks,
-    certainTasks: this.props.tasksList,
-    allOrCertain: this.props.allOrCertain
+ const onClickAddEvent = ({name, description}) => {
+  const obj = {
+    id: Object.entries(this.props.tasks).length + 1,
+    name: name,
+    description: description,
+    completed: false
   }
-  
-  addTask = ({name, description}) => {
-    const obj = {
-        id: this.state.data.length+1,
-        name: name,
-        description: description,
-        completed: false
-    }
-    this.setState({data: [...this.state.data, obj]})
+  this.props.dispatchAddItem(obj.id, obj.name, obj.description)
+  console.log('11')
 }
 
-onChangeTask = (id) => {
-    const newData = this.state.data.map(it => {
-        if (it.id === id) {
-            it.completed = !it.completed
+const onClickAddEventTaskProject = ({name, description}) => {
+  const obj = {
+    id: Object.entries(this.props.tasks).length + 1,
+    name: name,
+    description: description,
+    completed: false, 
+    projectId: Object.entries(this.props.projectId)
+  }
+  this.props.dispatchAddItemInProject(obj.id, obj.name, obj.description, obj.projectId)
+  console.log('pip1')
+}
+
+
+const ListComponent = ({
+  projectId, 
+  projects, 
+  tasks, 
+  allOrCertain,
+  dispatchAddItem, 
+  ddispatchAddItemInProject
+                  }) => { //1 - certain 0 all
+
+    console.log('its rendernimg list full', tasks, projects)
+
+    if (allOrCertain) {
+      const searchForTask = (Ids, taskList) => {
+        const specificTasksList = {}
+        Object.values(Ids)?.map( taskId => {
+            return Object.values(taskList).map( (task) => {
+                return task.id.toString() === taskId.toString() 
+                ? specificTasksList[taskId] = task
+                : null
+            })
+        })
+        return specificTasksList
         }
-        return it})
-    this.setState({data:newData})
-    }
-    
-    onChangeCertainTask = (id) => {
-      const newD = this.state.certainTasks.map(it => {
-          if (it.id === id) {
-              it.completed = !it.completed
-          }
-          return it})
-      this.setState({certainTasks:newD})
-      }  
-
- render(){
-  if (this.state.allOrCertain) //0 - all 1 - certain
+        const projectTasksIds = projects[projectId]?.tasksIds
+        const projectTasks = searchForTask(projectTasksIds, tasks)
         return (
-            <div>
-                <div>
-                    {this.state.certainTasks.map(it => <Item class={styles.input} id={it.id}
-                                                    name={it.name}
-                                                    description={it.description}
-                                                    completed={it.completed}
-                                                    onChangeTask={this.onChangeCertainTask}
-                                                    index={this.state.certainTasks.findIndex((el) => el.id === it.id)}
-                                                    />)}
-                    
-                </div>
-                <Add taskOrProject={1} class={styles.input} buttonClick={this.addTask}/>
-
-            </div>
-            
-        )
-  else if (!this.state.allOrCertain) {
-    return(
-      <div>
-        <div>{console.log(this.state.data)}</div>
-        <div>
-             {this.state.data.map(it => <Item class={styles.input}  id={it.id}
-                                                    name={it.name}
-                                                    description={it.description}
-                                                    completed={it.completed}
-                                                    index={this.state.data.findIndex((el) => el.id === it.id)}
-                                                    onChangeTask={this.onChangeTask}
-                                                    />)}
-                    
+          <div>{
+          Object.values(projectTasks).map( task => {
+              return (
+                  <Item id={task.id} class={styles.input}/>
+              )
+          })} 
+           <Add taskOrProject={1} tasks={projectTasks} projectId={projectId} onCLick={onClickAddEventTaskProject}></Add>
+           <p>{console.log('aaaaaa')}</p>
           </div>
-          <Add class={styles.input} taskOrProject={1} buttonClick={this.addTask}/>
-      </div>
-    )
+      )
+    }
+    else {
+        return(
+          <div>
+          { Object.values(tasks).map( task => {
+            return (
+                <Item id={task.id} class={styles.input}/>
+            )
+          })}
+          <Add taskOrProject={1} tasks={tasks} onCLick={onClickAddEvent}></Add>
+          <p>{console.log('pppp')}</p>
+        </div>
+        )
+  }
 }
-}}
-
-
-  export default List;
+export const List = connect(mapStateToProps, mapDispatchToProps)(ListComponent) 
