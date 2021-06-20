@@ -14,7 +14,8 @@ const projs = []
         id: project.id, 
         name: project.name,
         description: project.description,
-        tasksNum: project.tasksIds.length
+        tasksNum: project.tasksIds.length,
+        tasksIds: project.tasksIds
     })
   }
 
@@ -46,8 +47,10 @@ class ProjectList extends React.Component  {
                       name={proj.name}
                       tasksNum={proj.tasksNum}
                       projectsById={this.state.projects}
+                      tasksIds={proj.tasksIds}
                       tasksById={this.state.tasks}
-                      full={0}>
+                      full={0}
+                      >
                     </Project>
                   </Link>
                   </div> 

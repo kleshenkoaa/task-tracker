@@ -8,27 +8,69 @@ import { BrowserRouter, Switch, Route, Link, Redirect, withRouter } from "react-
 
 const cx=classnames.bind(styles)
 
-const Project = ({id, full, projectsById, tasksById}) => {
-      console.log(id)
-      const project = projectsById[id]
-      const projectName = project?.name
-      const tasksIds = project?.tasksIds
-      const tasks = tasksIds?.map( taskId => tasksById[taskId] )
-     return(<ThemeContext.Consumer> 
-        {theme => (
-              <div>
-                  <div>{id}</div>
-                  <div>{projectName}</div>
-                  <div>Tasks' ids: {tasksIds}</div>
-                  <div> {full ?  <List 
-                  tasksList={tasks}
-                  allOrCertain={1}
-                  /> : ""}</div>
-
-                </div>
-      
-            )}
-      </ThemeContext.Consumer>
+const SpecificProject = ({ match }) => {
+      const { projectId } = match.params
+    
+      if (!Number(projectId)) {
+        return <Redirect to="/" />
+      }
+    
+      return (
+        <div>
+          <h2>Specific Project {projectId}</h2>
+        </div>
       )
+    }
+//const Project = ({id, full, projectsById, tasksById}) => {
+const Project = (props) => {
+      console.log(props)
+      if (props.match) {
+            if (!Number(props.match.params.projectId)) {
+                  console.log('his')
+                  return <Redirect to="/" />
+                }
+            else {
+                  console.log(props)
+                  const project = props.projectsById[props.match.params.projectId]
+
+                  const projectName = project?.name
+                  const tasksIds = project?.tasksIds
+                  console.log(tasksIds)
+                  const tasks = tasksIds?.map( taskId => props.tasksById[taskId] )
+                  
+            return(<ThemeContext.Consumer> 
+                  {theme => (
+                        <div>
+                              <div>{props.match.params.projectId}</div>
+                              <div>{projectName}</div>
+                              <div>Tasks' ids: {tasksIds}</div>
+                              <div> {props.full ?  <List 
+                              tasksList={tasks}
+                              allOrCertain={1}
+                              /> : ""}</div>
+      
+                        </div>
+                  
+                        )}
+                  </ThemeContext.Consumer>
+                  )
+           }
+
+      }
+      else {
+            return(<ThemeContext.Consumer> 
+                  {theme => (
+                        
+                        <div>
+                              <div>{props.id}</div>
+                              <div>{props.name}</div>
+                              <div>Tasks' ids: {props.tasksIds}</div>
+                        </div>
+                        )}
+                  </ThemeContext.Consumer>
+                  )
+      }
+     
 }
+
    export default Project;

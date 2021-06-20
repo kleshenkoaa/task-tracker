@@ -37,14 +37,27 @@ class List extends React.Component {
     allOrCertain: this.props.allOrCertain
   }
   
-  addTask = ({name, description}) => {
+  addTask = ({name, description, projectId}) => {
     const obj = {
         id: this.state.data.length+1,
         name: name,
         description: description,
-        completed: false
+        completed: false, 
+        projectId: projectId
     }
     this.setState({data: [...this.state.data, obj]})
+}
+
+addCertainTask = ({name, description, projectId}) => {
+  const obj = {
+      id: this.state.data.length+1,
+      name: name,
+      description: description,
+      completed: false, 
+      projectId: projectId
+  }
+  this.setState({certainTasks: [...this.state.certainTasks, obj],
+    data: [...this.state.data, obj]})
 }
 
 onChangeTask = (id) => {
@@ -79,7 +92,7 @@ onChangeTask = (id) => {
                                                     />)}
                     
                 </div>
-                <Add taskOrProject={1} class={styles.input} buttonClick={this.addTask}/>
+                <Add taskOrProject={1} class={styles.input} buttonClick={this.addCertainTask}/>
 
             </div>
             

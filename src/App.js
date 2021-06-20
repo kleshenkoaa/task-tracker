@@ -67,34 +67,24 @@ class App extends React.Component {
           <ThemeContext.Provider value={this.state.theme}>
           <Route path="/" component={Header} />
             <Switch>  
-              <Route exact path='/projects' component={ProjectList}>
+              <Route exact path='/projects/' component={ProjectList}>
                 <ProjectList projectsById={this.state.projectsById} tasksById={this.state.tasksById}/>
               </Route>
               <Route exact path='/tasks' component={List}>
                 <List allOrCertain={0} tasksById={this.state.tasksById} />
               </Route>
-              <Route exact path='/projects/0'>
-                  <Project projectsById={this.state.projectsById}
-                            tasksById={this.state.tasksById}   
-                            full={1}   
-                            id={0}
-                    />
-                </Route> 
-                <Route exact path='/projects/1'>
-                  <Project projectsById={this.state.projectsById}
-                            tasksById={this.state.tasksById}   
-                            full={1}   
-                            id={1}
-                    />
-                </Route> 
-                <Route exact path='/projects/2'>
-                  <Project projectsById={this.state.projectsById}
-                            tasksById={this.state.tasksById}   
-                            full={1}   
-                            id={2}
-                    />
-                </Route>  
-
+              <Route exact path='/projects/:projectId/'
+               render={({ 
+                match 
+            }) => (
+                <Project match={match} projectsById={this.state.projectsById}
+                tasksById={this.state.tasksById}   
+                full={1}   />
+            )} 
+              
+             >
+                  
+                </Route>
                <Redirect to="/" />
         </Switch>
           </ThemeContext.Provider>  
@@ -153,7 +143,13 @@ const SpecificProject = ({ match, ...args}) => {
 export default App;
 
 
-/*<Route exact path='/projects:id'>
+/*
+<Project projectsById={this.state.projectsById}
+                            tasksById={this.state.tasksById}   
+                            full={1}   
+                    />
+
+<Route exact path='/projects:id'>
                 <Project projectsById={this.state.projectsById}
                          tasksById={this.state.tasksById}      
                 />
