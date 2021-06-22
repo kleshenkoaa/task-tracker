@@ -36,7 +36,8 @@ const data = [
       description: 'Read 100 pages of the book',
       completed: true
     }
-  ]
+  ];
+
 
   export default data;
-  
+ 
