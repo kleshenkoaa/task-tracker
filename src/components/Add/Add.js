@@ -5,6 +5,11 @@ import styles from './Add.module.scss'
 
 const cx=classnames.bind(styles)
 
+/**
+@file Add.h
+The $Add class
+@brief This class adds tasks and projects to the list
+*/
 class Add extends React.Component {
     
     state = {
@@ -20,6 +25,13 @@ class Add extends React.Component {
   
     render() {
     const flg = this.props.taskOrProject
+
+/*!
+*
+* @brief Метод добавления задачи или проекта
+* @param flg Флаг выбора задачи или проекта. 1 - задача, 0 - проект
+*
+*/
        if (flg) { //1 - task
             return (
         <ThemeContext.Consumer>

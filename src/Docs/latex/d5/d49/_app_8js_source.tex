@@ -1,0 +1,180 @@
+\hypertarget{_app_8js_source}{}\doxysection{App.\+js}
+\label{_app_8js_source}\index{C:/Users/anna.kleshchenko/Documents/GitHub/task-\/tracker/src/App.js@{C:/Users/anna.kleshchenko/Documents/GitHub/task-\/tracker/src/App.js}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{_app_8js_source_l00001}00001 import React from 'react';}
+\DoxyCodeLine{\Hypertarget{_app_8js_source_l00002}00002 import styles from './App.module.scss'}
+\DoxyCodeLine{\Hypertarget{_app_8js_source_l00003}00003 import classnames from 'classnames/bind'}
+\DoxyCodeLine{\Hypertarget{_app_8js_source_l00004}00004 import List from './components/List/List.js'}
+\DoxyCodeLine{\Hypertarget{_app_8js_source_l00005}00005 //import ProjectsList from './components/ProjectsList/projectsList.js'}
+\DoxyCodeLine{\Hypertarget{_app_8js_source_l00006}00006 import \{ DEFAULT\_THEME, ThemeContext \} from "{}./ThemeContext"{}}
+\DoxyCodeLine{\Hypertarget{_app_8js_source_l00007}00007 import \{ BrowserRouter, Switch, Route, Link, Redirect, withRouter \} from "{}react-\/router-\/dom"{}}
+\DoxyCodeLine{\Hypertarget{_app_8js_source_l00008}00008 import projects from './Data/projects.js'}
+\DoxyCodeLine{\Hypertarget{_app_8js_source_l00009}00009 import normalizeState from './Data/normalizeState'}
+\DoxyCodeLine{\Hypertarget{_app_8js_source_l00010}00010 import ProjectList from './components/ProjectList/ProjectList';}
+\DoxyCodeLine{\Hypertarget{_app_8js_source_l00011}00011 import Project from './components/Project/Project';}
+\DoxyCodeLine{\Hypertarget{_app_8js_source_l00012}00012 import Add from './components/Add/Add.js'}
+\DoxyCodeLine{\Hypertarget{_app_8js_source_l00013}00013 }
+\DoxyCodeLine{\Hypertarget{_app_8js_source_l00014}00014 //const \{projectsById, tasksById\} = norm;}
+\DoxyCodeLine{\Hypertarget{_app_8js_source_l00015}00015 }
+\DoxyCodeLine{\Hypertarget{_app_8js_source_l00016}00016 const \{projectsById, tasksById\} = normalizeState(projects)}
+\DoxyCodeLine{\Hypertarget{_app_8js_source_l00017}00017 }
+\DoxyCodeLine{\Hypertarget{_app_8js_source_l00018}00018 }
+\DoxyCodeLine{\Hypertarget{_app_8js_source_l00019}00019 const cx=classnames.bind(styles)}
+\DoxyCodeLine{\Hypertarget{_app_8js_source_l00020}00020 }
+\DoxyCodeLine{\Hypertarget{_app_8js_source_l00021}00021 class App extends React.Component \{}
+\DoxyCodeLine{\Hypertarget{_app_8js_source_l00022}00022 }
+\DoxyCodeLine{\Hypertarget{_app_8js_source_l00023}00023   state=\{}
+\DoxyCodeLine{\Hypertarget{_app_8js_source_l00024}00024     theme: DEFAULT\_THEME,}
+\DoxyCodeLine{\Hypertarget{_app_8js_source_l00025}00025     projectsById,}
+\DoxyCodeLine{\Hypertarget{_app_8js_source_l00026}00026     tasksById}
+\DoxyCodeLine{\Hypertarget{_app_8js_source_l00027}00027   \}}
+\DoxyCodeLine{\Hypertarget{_app_8js_source_l00028}00028 }
+\DoxyCodeLine{\Hypertarget{_app_8js_source_l00029}00029   handleThemeChange = event => \{}
+\DoxyCodeLine{\Hypertarget{_app_8js_source_l00030}00030     this.setState(\{theme: event.target.value\})}
+\DoxyCodeLine{\Hypertarget{_app_8js_source_l00031}00031   \}}
+\DoxyCodeLine{\Hypertarget{_app_8js_source_l00032}00032 }
+\DoxyCodeLine{\Hypertarget{_app_8js_source_l00033}00033 }
+\DoxyCodeLine{\Hypertarget{_app_8js_source_l00034}00034   render()\{}
+\DoxyCodeLine{\Hypertarget{_app_8js_source_l00035}00035     return(}
+\DoxyCodeLine{\Hypertarget{_app_8js_source_l00036}00036       <div>\{console.log(this.state.projectsById)\}}
+\DoxyCodeLine{\Hypertarget{_app_8js_source_l00037}00037       <BrowserRouter>}
+\DoxyCodeLine{\Hypertarget{_app_8js_source_l00038}00038         <div className=\{cx("{}container"{}, `container-\/theme-\/\$\{this.state.theme\}`)\}>}
+\DoxyCodeLine{\Hypertarget{_app_8js_source_l00039}00039           <div className=\{cx("{}radios"{})\}>}
+\DoxyCodeLine{\Hypertarget{_app_8js_source_l00040}00040             <div className=\{cx('theme')\}>}
+\DoxyCodeLine{\Hypertarget{_app_8js_source_l00041}00041             <div>}
+\DoxyCodeLine{\Hypertarget{_app_8js_source_l00042}00042               <input }
+\DoxyCodeLine{\Hypertarget{_app_8js_source_l00043}00043                 type="{}radio"{}}
+\DoxyCodeLine{\Hypertarget{_app_8js_source_l00044}00044                 name="{}theme"{}}
+\DoxyCodeLine{\Hypertarget{_app_8js_source_l00045}00045                 id="{}light"{}}
+\DoxyCodeLine{\Hypertarget{_app_8js_source_l00046}00046                 value="{}light"{}}
+\DoxyCodeLine{\Hypertarget{_app_8js_source_l00047}00047                 checked=\{this.state.theme === "{}light"{}\}}
+\DoxyCodeLine{\Hypertarget{_app_8js_source_l00048}00048                 onChange=\{this.handleThemeChange\}}
+\DoxyCodeLine{\Hypertarget{_app_8js_source_l00049}00049               />}
+\DoxyCodeLine{\Hypertarget{_app_8js_source_l00050}00050               <label htmlFor="{}light"{}>Light theme</label>}
+\DoxyCodeLine{\Hypertarget{_app_8js_source_l00051}00051             </div>}
+\DoxyCodeLine{\Hypertarget{_app_8js_source_l00052}00052 }
+\DoxyCodeLine{\Hypertarget{_app_8js_source_l00053}00053             <div>}
+\DoxyCodeLine{\Hypertarget{_app_8js_source_l00054}00054               <input}
+\DoxyCodeLine{\Hypertarget{_app_8js_source_l00055}00055                 type="{}radio"{}}
+\DoxyCodeLine{\Hypertarget{_app_8js_source_l00056}00056                 name="{}theme"{}}
+\DoxyCodeLine{\Hypertarget{_app_8js_source_l00057}00057                 id="{}dark"{}}
+\DoxyCodeLine{\Hypertarget{_app_8js_source_l00058}00058                 value="{}dark"{}}
+\DoxyCodeLine{\Hypertarget{_app_8js_source_l00059}00059                 checked=\{this.state.theme === "{}dark"{}\}}
+\DoxyCodeLine{\Hypertarget{_app_8js_source_l00060}00060                 onChange=\{this.handleThemeChange\}}
+\DoxyCodeLine{\Hypertarget{_app_8js_source_l00061}00061               />}
+\DoxyCodeLine{\Hypertarget{_app_8js_source_l00062}00062               <label htmlFor="{}dark"{}>Dark theme</label>}
+\DoxyCodeLine{\Hypertarget{_app_8js_source_l00063}00063             </div>}
+\DoxyCodeLine{\Hypertarget{_app_8js_source_l00064}00064           </div>}
+\DoxyCodeLine{\Hypertarget{_app_8js_source_l00065}00065           }
+\DoxyCodeLine{\Hypertarget{_app_8js_source_l00066}00066           </div>}
+\DoxyCodeLine{\Hypertarget{_app_8js_source_l00067}00067           <ThemeContext.Provider value=\{this.state.theme\}>}
+\DoxyCodeLine{\Hypertarget{_app_8js_source_l00068}00068           <Route path="{}/"{} component=\{Header\} />}
+\DoxyCodeLine{\Hypertarget{_app_8js_source_l00069}00069             <Switch>  }
+\DoxyCodeLine{\Hypertarget{_app_8js_source_l00070}00070               <Route exact path='/projects/' component=\{ProjectList\}>}
+\DoxyCodeLine{\Hypertarget{_app_8js_source_l00071}00071                 <ProjectList projectsById=\{this.state.projectsById\} tasksById=\{this.state.tasksById\}/>}
+\DoxyCodeLine{\Hypertarget{_app_8js_source_l00072}00072               </Route>}
+\DoxyCodeLine{\Hypertarget{_app_8js_source_l00073}00073               <Route exact path='/tasks' component=\{List\}>}
+\DoxyCodeLine{\Hypertarget{_app_8js_source_l00074}00074                 <List allOrCertain=\{0\} tasksById=\{this.state.tasksById\} />}
+\DoxyCodeLine{\Hypertarget{_app_8js_source_l00075}00075               </Route>}
+\DoxyCodeLine{\Hypertarget{_app_8js_source_l00076}00076               <Route exact path='/projects/:projectId/'}
+\DoxyCodeLine{\Hypertarget{_app_8js_source_l00077}00077                render=\{(\{ }
+\DoxyCodeLine{\Hypertarget{_app_8js_source_l00078}00078                 match }
+\DoxyCodeLine{\Hypertarget{_app_8js_source_l00079}00079             \}) => (}
+\DoxyCodeLine{\Hypertarget{_app_8js_source_l00080}00080                 <Project match=\{match\} projectsById=\{this.state.projectsById\}}
+\DoxyCodeLine{\Hypertarget{_app_8js_source_l00081}00081                 tasksById=\{this.state.tasksById\}   }
+\DoxyCodeLine{\Hypertarget{_app_8js_source_l00082}00082                 full=\{1\}   />}
+\DoxyCodeLine{\Hypertarget{_app_8js_source_l00083}00083             )\} }
+\DoxyCodeLine{\Hypertarget{_app_8js_source_l00084}00084               }
+\DoxyCodeLine{\Hypertarget{_app_8js_source_l00085}00085              >}
+\DoxyCodeLine{\Hypertarget{_app_8js_source_l00086}00086                   }
+\DoxyCodeLine{\Hypertarget{_app_8js_source_l00087}00087                 </Route>}
+\DoxyCodeLine{\Hypertarget{_app_8js_source_l00088}00088                <Redirect to="{}/"{} />}
+\DoxyCodeLine{\Hypertarget{_app_8js_source_l00089}00089         </Switch>}
+\DoxyCodeLine{\Hypertarget{_app_8js_source_l00090}00090           </ThemeContext.Provider>  }
+\DoxyCodeLine{\Hypertarget{_app_8js_source_l00091}00091                     }
+\DoxyCodeLine{\Hypertarget{_app_8js_source_l00092}00092           </div>}
+\DoxyCodeLine{\Hypertarget{_app_8js_source_l00093}00093         </BrowserRouter>}
+\DoxyCodeLine{\Hypertarget{_app_8js_source_l00094}00094         </div>}
+\DoxyCodeLine{\Hypertarget{_app_8js_source_l00095}00095     )}
+\DoxyCodeLine{\Hypertarget{_app_8js_source_l00096}00096 \}}
+\DoxyCodeLine{\Hypertarget{_app_8js_source_l00097}00097 \}}
+\DoxyCodeLine{\Hypertarget{_app_8js_source_l00098}00098 }
+\DoxyCodeLine{\Hypertarget{_app_8js_source_l00099}00099 const Header = () => \{}
+\DoxyCodeLine{\Hypertarget{_app_8js_source_l00100}00100   return (}
+\DoxyCodeLine{\Hypertarget{_app_8js_source_l00101}00101     <div>}
+\DoxyCodeLine{\Hypertarget{_app_8js_source_l00102}00102       <h2>Menu</h2>}
+\DoxyCodeLine{\Hypertarget{_app_8js_source_l00103}00103       <ul>}
+\DoxyCodeLine{\Hypertarget{_app_8js_source_l00104}00104         <li>}
+\DoxyCodeLine{\Hypertarget{_app_8js_source_l00105}00105           <Link to="{}/"{}>Home</Link>}
+\DoxyCodeLine{\Hypertarget{_app_8js_source_l00106}00106         </li>}
+\DoxyCodeLine{\Hypertarget{_app_8js_source_l00107}00107         <li>}
+\DoxyCodeLine{\Hypertarget{_app_8js_source_l00108}00108           <Link to="{}/projects/"{}>Projects</Link>}
+\DoxyCodeLine{\Hypertarget{_app_8js_source_l00109}00109         </li>}
+\DoxyCodeLine{\Hypertarget{_app_8js_source_l00110}00110         <li>}
+\DoxyCodeLine{\Hypertarget{_app_8js_source_l00111}00111           <Link to="{}/tasks/"{}>Tasks</Link>}
+\DoxyCodeLine{\Hypertarget{_app_8js_source_l00112}00112         </li>}
+\DoxyCodeLine{\Hypertarget{_app_8js_source_l00113}00113       </ul>}
+\DoxyCodeLine{\Hypertarget{_app_8js_source_l00114}00114       <hr />}
+\DoxyCodeLine{\Hypertarget{_app_8js_source_l00115}00115     </div>}
+\DoxyCodeLine{\Hypertarget{_app_8js_source_l00116}00116   )}
+\DoxyCodeLine{\Hypertarget{_app_8js_source_l00117}00117 \}}
+\DoxyCodeLine{\Hypertarget{_app_8js_source_l00118}00118 }
+\DoxyCodeLine{\Hypertarget{_app_8js_source_l00119}00119 }
+\DoxyCodeLine{\Hypertarget{_app_8js_source_l00120}00120 const SpecificProject = (\{ match, ...args\}) => \{}
+\DoxyCodeLine{\Hypertarget{_app_8js_source_l00121}00121   const \{ projectId \} = match.params}
+\DoxyCodeLine{\Hypertarget{_app_8js_source_l00122}00122 }
+\DoxyCodeLine{\Hypertarget{_app_8js_source_l00123}00123   if (!Number(projectId)) \{}
+\DoxyCodeLine{\Hypertarget{_app_8js_source_l00124}00124     return <Redirect to="{}/"{} />}
+\DoxyCodeLine{\Hypertarget{_app_8js_source_l00125}00125   \}}
+\DoxyCodeLine{\Hypertarget{_app_8js_source_l00126}00126 }
+\DoxyCodeLine{\Hypertarget{_app_8js_source_l00127}00127   return(<ThemeContext.Consumer> }
+\DoxyCodeLine{\Hypertarget{_app_8js_source_l00128}00128     \{theme => (}
+\DoxyCodeLine{\Hypertarget{_app_8js_source_l00129}00129           <div>}
+\DoxyCodeLine{\Hypertarget{_app_8js_source_l00130}00130               <div>\{args.id\}</div>}
+\DoxyCodeLine{\Hypertarget{_app_8js_source_l00131}00131               <div>\{args.name\}</div>}
+\DoxyCodeLine{\Hypertarget{_app_8js_source_l00132}00132               <div>\{args.tasksNum\}</div>}
+\DoxyCodeLine{\Hypertarget{_app_8js_source_l00133}00133               <div> \{args.full ?  <List projectId=\{args.id\}/> : "{}"{}\}</div>}
+\DoxyCodeLine{\Hypertarget{_app_8js_source_l00134}00134 }
+\DoxyCodeLine{\Hypertarget{_app_8js_source_l00135}00135             </div>}
+\DoxyCodeLine{\Hypertarget{_app_8js_source_l00136}00136   }
+\DoxyCodeLine{\Hypertarget{_app_8js_source_l00137}00137         )\}}
+\DoxyCodeLine{\Hypertarget{_app_8js_source_l00138}00138   </ThemeContext.Consumer>}
+\DoxyCodeLine{\Hypertarget{_app_8js_source_l00139}00139   )}
+\DoxyCodeLine{\Hypertarget{_app_8js_source_l00140}00140 }
+\DoxyCodeLine{\Hypertarget{_app_8js_source_l00141}00141 \}}
+\DoxyCodeLine{\Hypertarget{_app_8js_source_l00142}00142   }
+\DoxyCodeLine{\Hypertarget{_app_8js_source_l00143}00143 export default App;}
+\DoxyCodeLine{\Hypertarget{_app_8js_source_l00144}00144 }
+\DoxyCodeLine{\Hypertarget{_app_8js_source_l00145}00145 }
+\DoxyCodeLine{\Hypertarget{_app_8js_source_l00146}00146 /*}
+\DoxyCodeLine{\Hypertarget{_app_8js_source_l00147}00147 <Project projectsById=\{this.state.projectsById\}}
+\DoxyCodeLine{\Hypertarget{_app_8js_source_l00148}00148                             tasksById=\{this.state.tasksById\}   }
+\DoxyCodeLine{\Hypertarget{_app_8js_source_l00149}00149                             full=\{1\}   }
+\DoxyCodeLine{\Hypertarget{_app_8js_source_l00150}00150                     />}
+\DoxyCodeLine{\Hypertarget{_app_8js_source_l00151}00151 }
+\DoxyCodeLine{\Hypertarget{_app_8js_source_l00152}00152 <Route exact path='/projects:id'>}
+\DoxyCodeLine{\Hypertarget{_app_8js_source_l00153}00153                 <Project projectsById=\{this.state.projectsById\}}
+\DoxyCodeLine{\Hypertarget{_app_8js_source_l00154}00154                          tasksById=\{this.state.tasksById\}      }
+\DoxyCodeLine{\Hypertarget{_app_8js_source_l00155}00155                 />}
+\DoxyCodeLine{\Hypertarget{_app_8js_source_l00156}00156 }
+\DoxyCodeLine{\Hypertarget{_app_8js_source_l00157}00157               </Route> */}
+\DoxyCodeLine{\Hypertarget{_app_8js_source_l00158}00158 }
+\DoxyCodeLine{\Hypertarget{_app_8js_source_l00159}00159               /*}
+\DoxyCodeLine{\Hypertarget{_app_8js_source_l00160}00160 }
+\DoxyCodeLine{\Hypertarget{_app_8js_source_l00161}00161                <Project projectsById=\{this.state.projectsById\}}
+\DoxyCodeLine{\Hypertarget{_app_8js_source_l00162}00162                          tasksById=\{this.state.tasksById\}   }
+\DoxyCodeLine{\Hypertarget{_app_8js_source_l00163}00163                          full=\{1\}   }
+\DoxyCodeLine{\Hypertarget{_app_8js_source_l00164}00164                 />}
+\DoxyCodeLine{\Hypertarget{_app_8js_source_l00165}00165 }
+\DoxyCodeLine{\Hypertarget{_app_8js_source_l00166}00166 }
+\DoxyCodeLine{\Hypertarget{_app_8js_source_l00167}00167  <Route exact path='/projects/:projectId'>}
+\DoxyCodeLine{\Hypertarget{_app_8js_source_l00168}00168                   <Project projectsById=\{this.state.projectsById\}}
+\DoxyCodeLine{\Hypertarget{_app_8js_source_l00169}00169                             tasksById=\{this.state.tasksById\}   }
+\DoxyCodeLine{\Hypertarget{_app_8js_source_l00170}00170                             full=\{1\}   }
+\DoxyCodeLine{\Hypertarget{_app_8js_source_l00171}00171                     />}
+\DoxyCodeLine{\Hypertarget{_app_8js_source_l00172}00172                 </Route> }
+\DoxyCodeLine{\Hypertarget{_app_8js_source_l00173}00173 }
+\DoxyCodeLine{\Hypertarget{_app_8js_source_l00174}00174                 */}
+
+\end{DoxyCode}
