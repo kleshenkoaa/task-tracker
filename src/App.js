@@ -1,3 +1,12 @@
+/**
+ * @mainpage Приложение для учета рабочих задач
+ * 
+ * 
+ * 
+ * 
+ */
+
+
 import React from 'react';
 import styles from './App.module.scss'
 import classnames from 'classnames/bind'
